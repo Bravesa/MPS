@@ -1,5 +1,11 @@
 from TelaLogin import *
 
+
+
+import hashlib
+f = b"asdasasd"
+g = hashlib.sha256(f).hexdigest()
+print(g)
+
 a = janelaLogin()
-for i in range(100):
-    print(i)
+b = janelaLogin()

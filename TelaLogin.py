@@ -1,59 +1,64 @@
 from tkinter import *
 from datetime import datetime
+import hashlib
 
 class janelaLogin:
     def __init__(self):
         def validacaoLogin(event=None):
-            nome = nomeUsuario.get()
-            senha = senhaUsuario.get()
+            nome = self.nomeUsuario.get()
+            senha = self.senhaUsuario.get()
+            senha = hashlib.sha256(senha.encode()).hexdigest()
+            print(senha)
             if(nome == ""):
-                mensagemErro.config(text='PREENCHA O CAMPO USUÁRIO')
-                mensagemErro.grid(row=3, column=2)
+                self.mensagemErro.config(text='PREENCHA O CAMPO USUÁRIO')
+                self.mensagemErro.grid(row=3, column=2)
                 return
             if(senha == ""):
-                mensagemErro.config(text='PREENCHA O CAMPO SENHA')
-                mensagemErro.grid(row=3, column=2)
+                self.mensagemErro.config(text='PREENCHA O CAMPO SENHA')
+                self.mensagemErro.grid(row=3, column=2)
                 return
-            print(nomeUsuario.get(), senhaUsuario.get())
-            janela.destroy()
+            print(self.nomeUsuario.get(), self.senhaUsuario.get())
+            self.janela.destroy()
 
         def printHoraAtual(label):
             def mudar():
-                label["text"] = ("%02d:%02d:%02d" % (datetime.now().hour, datetime.now().minute, datetime.now().second))
-                label.after(1000, mudar)
-            mudar()
+                if self.janela.winfo_exists():
+                    label["text"] = ("%02d:%02d:%02d" % (datetime.now().hour, datetime.now().minute, datetime.now().second))
+                    label.after(1000, mudar)
+            if self.janela.winfo_exists():
+                mudar()
 
-        janela = Tk()
-        janela.title("Sistema de gerenciamento de eventos")
-        janela.bind('<Return>', validacaoLogin)
+        self.janela = Tk()
+        self.janela.title("Sistema de gerenciamento de eventos")
+        self.janela.bind('<Return>', validacaoLogin)
 
         #largura x altura + 'distancia de pixels desde a esquerda da tela' + 'distancia de cima'
-        janela.iconbitmap("rayquaza.ico")
+        self.janela.iconbitmap("rayquaza.ico")
 
-        data = Label(janela, width=8, text=("%02d/%02d/%d" % (datetime.now().day,datetime.now().month,datetime.now().year)))
-        data.grid(row=1, column=0)
-        relogio = Label(janela, width=data["width"])
-        relogio.grid(row=1, column=3)
-        printHoraAtual(relogio)
+        self.data = Label(self.janela, width=8, text=("%02d/%02d/%d" % (datetime.now().day,datetime.now().month,datetime.now().year)))
+        self.data.grid(row=1, column=0)
+        self.relogio = Label(self.janela, width=self.data["width"])
+        self.relogio.grid(row=1, column=3)
+        printHoraAtual(self.relogio)
 
-        labelUsuario = Label(janela, text="Usuário", width=6)
-        labelSenha = Label(janela, text="Senha", width=6)
-        nomeUsuario = Entry(janela, width="30")
-        senhaUsuario = Entry(janela, width="30", show="*") #caixinha de texto, .get() retorna uma string
-        login = Button(janela, text="Entrar", width=12, command=validacaoLogin)
-        logo = PhotoImage(file="logo.gif")
-        logoLabel = Label(janela, image=logo)
-        mensagemErro = Message(janela, text="", foreground="red", width="500",)
+        self.labelUsuario = Label(self.janela, text="Usuário", width=6)
+        self.labelSenha = Label(self.janela, text="Senha", width=6)
+        self.nomeUsuario = Entry(self.janela, width="30")
+        self.senhaUsuario = Entry(self.janela, width="30", show="*") #caixinha de texto, .get() retorna uma string
+        self.login = Button(self.janela, text="Entrar", width=12, command=validacaoLogin)
+        self.logo = PhotoImage(file="logo.gif")
+        self.logoLabel = Label(self.janela, image=self.logo)
+        self.mensagemErro = Message(self.janela, text="", foreground="red", width="500",)
 
-        logoLabel.grid(row=2,column=1, columnspan=2, ipady=20, sticky=N+S+E+W)
-        labelUsuario.grid(row=4, column=1, sticky=N+S+E+W, ipady=1)
-        labelSenha.grid(row=5, column=1, sticky=N+S+E+W, ipady=1)
-        nomeUsuario.grid(row=4, column=2, sticky=N+S+E+W)
-        senhaUsuario.grid(row=5, column=2, sticky=N+S+E+W)
-        login.grid(row=6, column=1, columnspan=2, pady=5)
+        self.logoLabel.grid(row=2,column=1, columnspan=2, ipady=20, sticky=N+S+E+W)
+        self.labelUsuario.grid(row=4, column=1, sticky=N+S+E+W, ipady=1)
+        self.labelSenha.grid(row=5, column=1, sticky=N+S+E+W, ipady=1)
+        self.nomeUsuario.grid(row=4, column=2, sticky=N+S+E+W)
+        self.senhaUsuario.grid(row=5, column=2, sticky=N+S+E+W)
+        self.login.grid(row=6, column=1, columnspan=2, pady=5)
 
 
-        janela.mainloop()
+        self.janela.mainloop()
 
 
 

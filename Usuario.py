@@ -5,16 +5,23 @@ class Usuario:
         self.senha = senha
 
 
-class Administrador:
-    def __init__(self):
-        self.grupo = "Administradores"
+class Administrador(Usuario):
+    def __init__(self, registro, nome, senha):
+        Usuario.__init__(self, registro, nome, senha)
+        self.tipo = "Administrador"
+
+    def dados_mostrar(self):
+        print(self.tipo)
+        print("Registro: {0}".format(self.registro))
+        print("Nome: {0}".format(self.nome))
 
 
-class Atendente:
-    def __init__(self):
-        self.grupo = "Atendentes"
+class Atendente(Usuario):
+    def __init__(self, registro, nome, senha):
+        Usuario.__init__(self, registro, nome, senha)
+        self.tipo = "Atendente"
 
-
-class Cliente:
-    def __init__(self):
-        self.grupo = "Clientes"
+    def dados_mostrar(self):
+        print(self.tipo)
+        print("Registro: {0}".format(self.registro))
+        print("Nome: {0}".format(self.nome))

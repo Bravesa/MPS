@@ -1,5 +1,5 @@
-import sqlite3
+import sqlite3 as sqlt
 
-conn = sqlite3.connect("example.db")
+conn = sqlt.connect("example.db")
 
 c = conn.cursor()

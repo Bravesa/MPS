@@ -39,7 +39,7 @@ class Evento:
     def nome_mudar(self, nome):
         self.nome = nome
 
-    def informacoes_mostrar(self):
+    def dados_mostrar(self):
         print("Registro do evento: {0}".format(self.registro))
         print("Nome: {0},".format(self.nome))
         print("Quantidade de lugares: {0}".format(self.quantidade_lugares))
